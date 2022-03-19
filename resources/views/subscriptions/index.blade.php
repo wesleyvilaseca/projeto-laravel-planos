@@ -9,7 +9,7 @@
         <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
             <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg">
                 <div class="p-6 bg-white border-b border-gray-200">
-                    <form action="#" method="post" id="form">
+                    <form action="{{ route('subscriptions.store') }}" method="post" id="form">
                         @csrf
                         <div class="col-span-6 sm:col-span-4 py-2">
                             <input type="text" name="card-holder-name" id="card-holder-name"
@@ -18,8 +18,7 @@
                         </div>
 
                         <div class="col-span-6 sm:col-span-4 py-2">
-                            <input type="text" name="cupom" id="cupom"
-                                placeholder="Cupom"
+                            <input type="text" name="coupon" id="coupon" placeholder="Cupom"
                                 class="w-full px-3 py-2 placeholder-gray-300 border border-gray-300 rounded-md focus:outline-none focus:ring focus:ring-indigo-100 focus:border-indigo-300 dark:bg-gray-700 dark:placeholder-gray-500 dark:border-gray-600 dark:focus:ring-gray-900 dark:focus:border-gray-500">
                         </div>
 
@@ -74,6 +73,7 @@
     const form = document.getElementById('form');
     const cardHolderName = document.getElementById('card-holder-name');
     const cardButton = document.getElementById('card-buttom');
+    // const coupon = document.getElementById('coupon');
     const clientSecret = cardButton.dataset.secret;
 
     form.addEventListener('submit', async (e) => {
@@ -88,19 +88,25 @@
                 payment_method: {
                     card: carElement,
                     billing_details: {
-                        name: cardHolderName.value
+                        name: cardHolderName.value,
                     }
                 }
-            }
+            },
         );
 
         if (error) {
-            console.log(error);
+            // console.log(error);
             return alert('Errorr');
         }
 
-        console.log(setupIntent);
-        return alert('ok');
+        // console.log(setupIntent);
+        // return alert('ok');
 
+        let token = document.createElement('input');
+        token.setAttribute('type', 'hidden');
+        token.setAttribute('name', 'token');
+        token.setAttribute('value', setupIntent.payment_method);
+        form.appendChild(token);
+        form.submit();
     });
 </script>
