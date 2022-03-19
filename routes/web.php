@@ -14,6 +14,8 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
+Route::post('subscriptions/store',      [SubscriptionController::class, 'store'])->name('subscription.store');
+
 Route::get('subscriptions/checkout',    [SubscriptionController::class, 'index'])->name('subscription.checkout');
 Route::get('subscriptions/premium',     [SubscriptionController::class, 'premium'])->name('subscription.premium');
 

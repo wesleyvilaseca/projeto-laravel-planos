@@ -14,7 +14,9 @@ class SubscriptionController extends Controller
 
     public function index()
     {
-        return view('subscriptions.index');
+        $data['intent']     = auth()->user()->createSetupIntent();
+
+        return view('subscriptions.index', $data);
     }
 
     public function premium()
