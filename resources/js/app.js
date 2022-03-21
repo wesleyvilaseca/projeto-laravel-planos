@@ -1,7 +1,10 @@
 require('./bootstrap');
+require('alpinejs');
 
-import Alpine from 'alpinejs';
+window.Vue = require('vue').default
 
-window.Alpine = Alpine;
+Vue.component('contact-component', require('./components/Contact.vue').default)
 
-Alpine.start();
+const app = new Vue({
+    el: '#app'
+})

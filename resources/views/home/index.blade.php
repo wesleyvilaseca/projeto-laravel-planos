@@ -1,4 +1,5 @@
 <html lang="pt-BR">
+
 <head>
     <meta charset="UTF-8" />
     <title>Home - {{ config('app.name') }}</title>
@@ -10,6 +11,7 @@
     <link rel="icon" href="{{ asset('images/favicon.ico') }}">
     <link href="{{ asset('css/site.css') }}" rel="stylesheet">
 </head>
+
 <body>
     <div id="app">
         @include('home._partials.header')
@@ -26,6 +28,8 @@
         </main>
         @include('home._partials.footer')
     </div>
+
+    <script src="{{ asset('js/app.js') }}"></script>
 </body>
 
 </html>
