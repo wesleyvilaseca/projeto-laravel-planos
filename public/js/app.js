@@ -4023,6 +4023,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
 /* harmony export */ });
+/* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! axios */ "./node_modules/axios/index.js");
+/* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(axios__WEBPACK_IMPORTED_MODULE_0__);
 //
 //
 //
@@ -4061,7 +4063,44 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
-/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({});
+
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
+  data: function data() {
+    return {
+      preloader: false,
+      formData: {
+        name: '',
+        email: '',
+        subject: '',
+        message: ''
+      }
+    };
+  },
+  methods: {
+    sendContact: function sendContact() {
+      var _this = this;
+
+      this.preloader = true;
+      axios__WEBPACK_IMPORTED_MODULE_0___default().post('/api/contact', this.formData).then(function (res) {
+        alert('Mensagem enviado');
+      })["catch"](function (error) {
+        return console.log(error);
+      })["finally"](function () {
+        _this.preloader = false;
+
+        _this.reset();
+      });
+    },
+    reset: function reset() {
+      this.formData = {
+        name: '',
+        email: '',
+        subject: '',
+        message: ''
+      };
+    }
+  }
+});
 
 /***/ }),
 
@@ -21621,47 +21660,60 @@ var render = function () {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
-  return _vm._m(0)
-}
-var staticRenderFns = [
-  function () {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("div", [
-      _c("form", { staticClass: "form mt-10", attrs: { action: "" } }, [
+  return _c("div", [
+    _c(
+      "form",
+      {
+        staticClass: "form mt-10",
+        attrs: { action: "" },
+        on: {
+          submit: function ($event) {
+            $event.stopPropagation()
+            $event.preventDefault()
+            return _vm.sendContact.apply(null, arguments)
+          },
+        },
+      },
+      [
         _c("div", { staticClass: "form__row" }, [
           _c("div", { staticClass: "form__input-group" }, [
-            _c("div", { staticClass: "form__label-group" }, [
-              _c("p", [
-                _c("label", { attrs: { for: "name" } }, [
-                  _vm._v("Nome "),
-                  _c("abbr", { attrs: { title: "Obrigatório" } }, [
-                    _vm._v("*"),
-                  ]),
-                ]),
-              ]),
-            ]),
+            _vm._m(0),
             _c("input", {
+              directives: [
+                {
+                  name: "model",
+                  rawName: "v-model",
+                  value: _vm.formData.name,
+                  expression: "formData.name",
+                },
+              ],
               staticClass: "form__input",
               attrs: { id: "name", autocomplete: "false", tabindex: "0" },
+              domProps: { value: _vm.formData.name },
+              on: {
+                input: function ($event) {
+                  if ($event.target.composing) {
+                    return
+                  }
+                  _vm.$set(_vm.formData, "name", $event.target.value)
+                },
+              },
             }),
           ]),
         ]),
         _vm._v(" "),
         _c("div", { staticClass: "form__row" }, [
           _c("div", { staticClass: "form__input-group" }, [
-            _c("div", { staticClass: "form__label-group" }, [
-              _c("p", [
-                _c("label", { attrs: { for: "email" } }, [
-                  _vm._v("Email "),
-                  _c("abbr", { attrs: { title: "Obrigatório" } }, [
-                    _vm._v("*"),
-                  ]),
-                ]),
-              ]),
-            ]),
+            _vm._m(1),
             _c("input", {
+              directives: [
+                {
+                  name: "model",
+                  rawName: "v-model",
+                  value: _vm.formData.email,
+                  expression: "formData.email",
+                },
+              ],
               staticClass: "form__input",
               attrs: {
                 id: "email",
@@ -21670,27 +21722,31 @@ var staticRenderFns = [
                 tabindex: "0",
                 required: "",
               },
+              domProps: { value: _vm.formData.email },
+              on: {
+                input: function ($event) {
+                  if ($event.target.composing) {
+                    return
+                  }
+                  _vm.$set(_vm.formData, "email", $event.target.value)
+                },
+              },
             }),
           ]),
         ]),
         _vm._v(" "),
         _c("div", { staticClass: "form__row" }, [
           _c("div", { staticClass: "form__input-group" }, [
-            _c("div", { staticClass: "form__label-group" }, [
-              _c("p", [
-                _c(
-                  "label",
-                  { staticClass: "subject", attrs: { for: "subject" } },
-                  [
-                    _vm._v("Assunto "),
-                    _c("abbr", { attrs: { title: "Obrigatório" } }, [
-                      _vm._v("*"),
-                    ]),
-                  ]
-                ),
-              ]),
-            ]),
+            _vm._m(2),
             _c("input", {
+              directives: [
+                {
+                  name: "model",
+                  rawName: "v-model",
+                  value: _vm.formData.subject,
+                  expression: "formData.subject",
+                },
+              ],
               staticClass: "form__input",
               attrs: {
                 id: "subject",
@@ -21699,36 +21755,46 @@ var staticRenderFns = [
                 tabindex: "0",
                 required: "",
               },
+              domProps: { value: _vm.formData.subject },
+              on: {
+                input: function ($event) {
+                  if ($event.target.composing) {
+                    return
+                  }
+                  _vm.$set(_vm.formData, "subject", $event.target.value)
+                },
+              },
             }),
           ]),
         ]),
         _vm._v(" "),
         _c("div", { staticClass: "form__row" }, [
           _c("div", { staticClass: "form__input-group" }, [
-            _c("div", { staticClass: "form__label-group" }, [
-              _c("p", [
-                _c(
-                  "label",
-                  {
-                    staticClass: "bg-white text-gray-600 px-1",
-                    attrs: { for: "message" },
-                  },
-                  [
-                    _vm._v("Mensagem "),
-                    _c("abbr", { attrs: { title: "Obrigatório" } }, [
-                      _vm._v("*"),
-                    ]),
-                  ]
-                ),
-              ]),
-            ]),
+            _vm._m(3),
             _c("textarea", {
+              directives: [
+                {
+                  name: "model",
+                  rawName: "v-model",
+                  value: _vm.formData.message,
+                  expression: "formData.message",
+                },
+              ],
               staticClass: "form__input",
               attrs: {
                 id: "message",
                 name: "message",
                 rows: "4",
                 required: "",
+              },
+              domProps: { value: _vm.formData.message },
+              on: {
+                input: function ($event) {
+                  if ($event.target.composing) {
+                    return
+                  }
+                  _vm.$set(_vm.formData, "message", $event.target.value)
+                },
               },
             }),
           ]),
@@ -21739,11 +21805,72 @@ var staticRenderFns = [
             "button",
             {
               staticClass: "button button--filled button--primary",
-              attrs: { type: "submit" },
+              attrs: { type: "submit", disabled: _vm.preloader },
             },
-            [_vm._v("Enviar")]
+            [_vm._v(_vm._s(_vm.preloader ? "Enviando ..." : "Enviar"))]
           ),
         ]),
+      ]
+    ),
+  ])
+}
+var staticRenderFns = [
+  function () {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("div", { staticClass: "form__label-group" }, [
+      _c("p", [
+        _c("label", { attrs: { for: "name" } }, [
+          _vm._v("Nome "),
+          _c("abbr", { attrs: { title: "Obrigatório" } }, [_vm._v("*")]),
+        ]),
+      ]),
+    ])
+  },
+  function () {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("div", { staticClass: "form__label-group" }, [
+      _c("p", [
+        _c("label", { attrs: { for: "email" } }, [
+          _vm._v("Email "),
+          _c("abbr", { attrs: { title: "Obrigatório" } }, [_vm._v("*")]),
+        ]),
+      ]),
+    ])
+  },
+  function () {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("div", { staticClass: "form__label-group" }, [
+      _c("p", [
+        _c("label", { staticClass: "subject", attrs: { for: "subject" } }, [
+          _vm._v("Assunto "),
+          _c("abbr", { attrs: { title: "Obrigatório" } }, [_vm._v("*")]),
+        ]),
+      ]),
+    ])
+  },
+  function () {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("div", { staticClass: "form__label-group" }, [
+      _c("p", [
+        _c(
+          "label",
+          {
+            staticClass: "bg-white text-gray-600 px-1",
+            attrs: { for: "message" },
+          },
+          [
+            _vm._v("Mensagem "),
+            _c("abbr", { attrs: { title: "Obrigatório" } }, [_vm._v("*")]),
+          ]
+        ),
       ]),
     ])
   },
@@ -33984,6 +34111,18 @@ module.exports = JSON.parse('{"name":"axios","version":"0.21.4","description":"P
 /******/ 				}
 /******/ 			}
 /******/ 			return result;
+/******/ 		};
+/******/ 	})();
+/******/ 	
+/******/ 	/* webpack/runtime/compat get default export */
+/******/ 	(() => {
+/******/ 		// getDefaultExport function for compatibility with non-harmony modules
+/******/ 		__webpack_require__.n = (module) => {
+/******/ 			var getter = module && module.__esModule ?
+/******/ 				() => (module['default']) :
+/******/ 				() => (module);
+/******/ 			__webpack_require__.d(getter, { a: getter });
+/******/ 			return getter;
 /******/ 		};
 /******/ 	})();
 /******/ 	
