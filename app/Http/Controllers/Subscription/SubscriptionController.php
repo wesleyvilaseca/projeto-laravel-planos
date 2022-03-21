@@ -20,6 +20,7 @@ class SubscriptionController extends Controller
     public function index()
     {
         $data['intent']     = auth()->user()->createSetupIntent();
+        $data['plan']       = session('plan');
 
         return view('subscriptions.index', $data);
     }
@@ -33,12 +34,14 @@ class SubscriptionController extends Controller
 
     public function store(Request $request)
     {
+        if ($request->stripe_id !== session('plan')->stripe_id) return Redirect::route('home');
+
         $user = Auth::user();
         try {
             if (!$request->coupon) {
-                $user->newSubscription('default', 'price_1KZGFYBOYMHClJEAMzjVbcu9')->create($request->token);
+                $user->newSubscription('default', session('plan')->stripe_id)->create($request->token);
             }
-            $user->newSubscription('default', 'price_1KZGFYBOYMHClJEAMzjVbcu9')->withCoupon($request->coupon)->create($request->token);
+            $user->newSubscription('default', session('plan')->stripe_id)->withCoupon($request->coupon)->create($request->token);
         } catch (\Exception $e) {
             return redirect()->back()->withErrors(['status' => $e->getMessage()]);
         }

@@ -9,6 +9,7 @@
         <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
             <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg">
                 <div class="p-6 bg-white border-b border-gray-200">
+                    <p>Assinando o plano <b>{{ $plan->name }}</b></p>
                     <form action="{{ route('subscriptions.store') }}" method="post" id="form">
                         @csrf
                         <div class="col-span-6 sm:col-span-4 py-2">
@@ -30,6 +31,7 @@
                             <button id="card-buttom" data-secret="{{ $intent->client_secret }}" type="submit"
                                 class="inline-flex justify-center py-2 px-4 border border-transparent shadow-sm text-sm font-medium rounded-md bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500">Enviar</button>
                         </div>
+                        <input type="hidden" name="stripe_id" id="stripe_id" value="{{ $plan->stripe_id }}">
                     </form>
                 </div>
             </div>

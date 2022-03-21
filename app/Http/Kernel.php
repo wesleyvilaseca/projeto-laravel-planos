@@ -66,6 +66,8 @@ class Kernel extends HttpKernel
 
         //personalized
 
-        'subscribed' => \App\Http\Middleware\EnsureUserIsSubscribed::class
+        'subscribed' => \App\Http\Middleware\EnsureUserIsSubscribed::class,
+        'check.choine.plan' => \App\Http\Middleware\CheckChoicePlan::class
+
     ];
 }
